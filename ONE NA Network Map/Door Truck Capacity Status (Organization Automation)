@@ -3,7 +3,11 @@ Author: Lofton Gentry
 Program Created: 8/24/2022
 Program Completed: 8/25/2022
 Version Number: 1.1.0
-Description: This program's purpose is to copy over all the data from the 'Sheet1' sheet on the 'Test Door Truck Capacity' spreadsheet, paste it over the 'Map' sheet after that sheet has been un-hidden, determine how many times green, yellow, and red appears, create empty rows with the values of green or yellow populating the 'Status' column, and then re-hiding the 'Map' sheet. This is done for the purpose of ordering the layers by green, yellow, then red on the 'Test Door Truck Capacity Status' layer on the ONE Network Map. The 'Map' sheet is hidden because the team in charge of pasting the values to the 'Sheet1' sheet do not like how empty rows are populated with 'yellow' or 'green', and I've had to work around that. 
+Description: This program's purpose is to copy over all the data from the 'Sheet1' sheet on the 'Test Door Truck Capacity' spreadsheet, paste it over the 'Map' sheet 
+after that sheet has been un-hidden, determine how many times green, yellow, and red appears, create empty rows with the values of green or yellow populating the 
+'Status' column, and then re-hiding the 'Map' sheet. This is done for the purpose of ordering the layers by green, yellow, then red on the 'Test Door Truck Capacity 
+Status' layer on the ONE Network Map. The 'Map' sheet is hidden because the team in charge of pasting the values to the 'Sheet1' sheet do not like how empty rows are 
+populated with 'yellow' or 'green', and I've had to work around that. 
 */
 
 //Set global variable ss to the spreadsheet where everything will be copied, and sh to the sheet where everything will all operations will be performed

@@ -3,9 +3,15 @@ Author: Lofton Gentry
 Program Created: 8/24/2022
 Program Completed: 8/25/2022
 Version Number: 1.1
-Description: This program's purpose is to examine the 'Status' column of the 'Map' sheet on the 'Chassis Status Report' spreadsheet, determine how many times green, yellow, and red appears, and then create empty rows with the values of green or yellow populating the 'Status' column. This is done for the purpose of ordering the layers by green, yellow, then red on the 'Chassis Status Report' layer on the ONE Network Map. 
+Description: This program's purpose is to examine the 'Status' column of the 'Map' sheet on the 'Chassis Status Report' spreadsheet, determine how many times green, 
+yellow, and red appears, and then create empty rows with the values of green or yellow populating the 'Status' column. This is done for the purpose of ordering the 
+layers by green, yellow, then red on the 'Chassis Status Report' layer on the ONE Network Map. 
 
-WARNING: Currently this program works because there are only 42 rows on the 'Map' sheet. If, for any reason, more rows need to be added, PLEASE CONTACT lofton.gentry@one-line.com. If he is unavailable or no longer works at ONE, please read through the documentation (the comments) on this program in order to change the program properly in order to ensure that no data is being erased when the 'Chassis Status Report' sheet is updated. This warning is for people who have not seen programming or do not know what they are looking at. If you know what this program is doing and/or understand what you're looking at, please disregard this warning.
+WARNING: Currently this program works because there are only 42 rows on the 'Map' sheet. If, for any reason, more rows need to be added, 
+PLEASE CONTACT lofton.gentry@one-line.com. If he is unavailable or no longer works at ONE, please read through the documentation (the comments) on this program 
+in order to change the program properly in order to ensure that no data is being erased when the 'Chassis Status Report' sheet is updated. This warning is for people 
+who have not seen programming or do not know what they are looking at. If you know what this program is doing and/or understand what you're looking at, please 
+disregard this warning.
 */
 
 //Set global variable ss to the spreadsheet where everything will be performed

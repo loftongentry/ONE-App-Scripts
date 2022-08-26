@@ -3,7 +3,10 @@ Author: Lofton Gentry (lofton.gentry@one-line.com)
 Program Created: 8/16/2022
 Program Completed: 8/23/2022
 Version: 1.1
-Description: This program's puprose is to gather data from an email, examine the 'Area Status' column from the 'Sheet1' sheet on the spreadsheet 'Imports at Destination' spreadsheet, determine how many times green, yellow, and red appears, and then create empty rows with the values of green or yellow populating the 'Area Status' column. This is done for the purpose of ordering the layers by green, yellow, then red on the 'Imports at Destination' layer on the ONE Network Map 
+Description: This program's puprose is to gather data from an email, examine the 'Area Status' column from the 'Sheet1' sheet on the spreadsheet 
+'Imports at Destination' spreadsheet, determine how many times green, yellow, and red appears, and then create empty rows with the values of green or yellow 
+populating the 'Area Status' column. This is done for the purpose of ordering the layers by green, yellow, then red on the 'Imports at Destination' layer on the 
+ONE Network Map.
 */
 
 //Set global variable ss to the spreadsheet where everything will be performed

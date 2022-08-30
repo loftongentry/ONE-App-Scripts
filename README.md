@@ -1,4 +1,5 @@
 # ONE-App-Scripts
+# LAST UPDATED: 8/26/22
 ### PERTINENT INFORMATION REGARDING THIS REPOSITORY
 - This is the current repository for all of the different scripts that I have eitehr written for Ocean Network Express, or am currently working on for Ocean Network Express. Each of the files have a description, as well as a start date and completed date. Because ONE uses Google scripts for some back-end development, and because there is no way to link github to Google scripts, each of these files will be updated manually, periodically. If there is a project that I am working on for ONE that does not use google scripts and can be updated using github, that program will be in a seperate repository.
 - Uploaded with the scripts as well are excel files associated with each of the scripts. These files are originally google sheets, however for the sake of example, I have included them as well to see what the files being edited look like. 

@@ -20,5 +20,7 @@ Each of the scripts already has a much lengthier description, as well as comment
     - **Door Truck Capacity Status:** Similar to the 'Chassis Status Report' script, the script this spreadsheet links to is also updated manually by a seperate team. Because the team that updates this spreadsheet do not want empty rows appearing, the sheet used by NA Network Map is shown, had actions performed on it, and then re-hidden. Please refer to the script itself for a more detailed explanation.
     - **Rail Departure Dwell (Imports at Port):** This script takes in data automatically from a seperate spreadsheet, and then processes this data to a point where it can be used by the ONE NA Network Map. Like the other scripts, this sheet also organizes its layers based on the number of times green, yellow, and red appear.
 4. **ORF Terminal Update (SCRIPT HANDED OVER TO TEAMMATE AND WILL NOT BE UPDATED FURTHER):** A script that pulls data from an HTML page, and then compares it to data from ONE's database on a seperate sheet. That sheet is then saved as a PDF and automatically sent to parties who that data is relevant towards. 
+5. **Invoice PDF OCR:** Script reads in a PDF that is obtained through an email, and then pulls data from it, compared so that only data that meet certain parameters are returned, and then that returned data is stored in a G Sheet that is stored in a specific folder on a shared drive.
+
 
 If there is anything that needs further explanation, please don't hesistate to reach out to me and ask. I will do my best to help. 

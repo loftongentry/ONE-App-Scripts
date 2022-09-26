@@ -2,16 +2,10 @@
 Author: Lofton Gentry
 Program Created: 8/24/2022
 Program Completed: 8/25/2022
-Version Number: 1.1
-Description: This program's purpose is to examine the 'Status' column of the 'Map' sheet on the 'Chassis Status Report' spreadsheet, determine how many times green, 
-yellow, and red appears, and then create empty rows with the values of green or yellow populating the 'Status' column. This is done for the purpose of ordering the 
-layers by green, yellow, then red on the 'Chassis Status Report' layer on the ONE Network Map. 
+Version Number: 1.1.3
+Description: This program's purpose is to examine the 'Status' column of the 'Map' sheet on the 'Chassis Status Report' spreadsheet, determine how many times green, yellow, and red appears, and then create empty rows with the values of green or yellow populating the 'Status' column. This is done for the purpose of ordering the layers by green, yellow, then red on the 'Chassis Status Report' layer on the ONE Network Map. 
 
-WARNING: Currently this program works because there are only 42 rows on the 'Map' sheet. If, for any reason, more rows need to be added, 
-PLEASE CONTACT lofton.gentry@one-line.com. If he is unavailable or no longer works at ONE, please read through the documentation (the comments) on this program 
-in order to change the program properly in order to ensure that no data is being erased when the 'Chassis Status Report' sheet is updated. This warning is for people 
-who have not seen programming or do not know what they are looking at. If you know what this program is doing and/or understand what you're looking at, please 
-disregard this warning.
+WARNING: Currently this program works because there are only 42 rows on the 'Map' sheet. If, for any reason, more rows need to be added, PLEASE CONTACT lofton.gentry@one-line.com. If he is unavailable or no longer works at ONE, please read through the documentation (the comments) on this program in order to change the program properly in order to ensure that no data is being erased when the 'Chassis Status Report' sheet is updated. This warning is for people who have not seen programming or do not know what they are looking at. If you know what this program is doing and/or understand what you're looking at, please disregard this warning.
 */
 
 //Set global variable ss to the spreadsheet where everything will be performed
@@ -21,20 +15,28 @@ const ss = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Map');
 function main(){
   /*
   Gets the range where the new blank layers will be created and sets it to the value rng
-  WARNING: This is the only variable that needs to be changed if there are more rows added to the 'Map' sheet. For any number of rows that need to be added, please increment the value 43 on line 25
+  WARNING: This variable needs to be changed if there are more rows added to the 'Map' sheet. For any number of rows that need to be added, please increment the value 43 on line 25
   with the number of rows to be added. 
   
   EXAMPLE: If there are two new rows to be added to the 'Map' sheet, then 43 will become 45 instead, and the line will look like:
     var rng = ss.getRange(45, 4, ss.getLastRow());
   This should ensure that the program will continue to execute properly and not erase any data
   */
-  var rng = ss.getRange(43, 4);
+  var rng = ss.getRange(43, 4, ss.getLastRow());
   //Clears content from the specified range
   rng.clearContent();
   //Sets the returned value from the dataReclamation method to the variable colorArray
   var colorArray = dataReclamation();
   //createNewRows method executes with the colorArray variable 
   createNewRows(colorArray);
+  /*
+  If check to see if there is an empty row, and if there is, it is deleted. This was done because during testing, there was an empty row that appeared that caused issues with the layer organization
+  WARNING: The values on lines 37 and 38 also needs to be changed if more rows are to be added. Much like the previous example, if you add two more rows, the variable will become 45 instead
+  of 43
+  */
+  if(SpreadsheetApp.getActiveSheet().getRange(43, 4).getValue() == ""){
+    ss.deleteRow(43);
+  }
 }
 
 //Method to determine the number of times green, yellow, and red appears in the 'Status' section of the 'Map' sheet
@@ -53,18 +55,18 @@ function dataReclamation() {
   for(var i = 0; i < length; i++){
     //Removes the first value of the array and stores it as the variable color
     var color = rng.shift();
-    if(color == 'Green'){
-      green1++;
-    } else if(color == 'Yellow'){
-      yellow1++;
-    } else if(color == 'Red'){
-      red++;
-    } 
+    //A ternary operator inside a ternary operator inside a ternary operator. Used to check the number of times each appear in the spreadsheet
+    color == 'Green' ? green1++ : color == 'Yellow' ? yellow1++ : color == 'Red' ? red++ : null;
   }
-  //If check to ensure that green is always greater than yellow and yellow is always greater than red (uses ternary operator)
-  yellow1 <= red ? yellow2 = red + 1 : null;
-  green1 <= yellow2 ? green2 = yellow2 + 1 : null;
   
+  //If check to ensure that green is always greater than yellow and yellow is always greater than red (uses ternary operator)
+  yellow1 <= red ?  yellow2 = red + 1 : null;
+  green1 <= yellow2 ? green2 = yellow2 + 1 : green1 <= yellow1 ? green2 = yellow1 + 1 : null;
+
+  //Sanity checker
+  Logger.log(green1 + " " + yellow1 + " " + red);
+  Logger.log(green2 + " " + yellow2 + " " + red);
+
   //Returns green and yellow as an array
   return [green1, green2, yellow1, yellow2];
 }

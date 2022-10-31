@@ -10,6 +10,9 @@ FUTURE PLANS: Data is output to google sheet that is stored in a specific folder
 //Find the email with that specific subject line
 var msgs = GmailApp.getMessagesForThreads(GmailApp.search('subject: "Customer Invoice "', 0, 1));
 
+//Find the email with that specific subject line
+var msgs = GmailApp.getMessagesForThreads(GmailApp.search('subject: "Test Email"', 0, 1));
+
 function main(){
   var text = emailPDF();
   var finalResult = filterText(text);
@@ -25,7 +28,7 @@ function emailPDF(){
     }
   }
   //Sets variable blob to the blob contents of the second attatchment
-  var blob = attatchments[1].copyBlob();
+  var blob = attatchments[0].copyBlob();
   //Uses Google's built in OCR to read all of the text
   var ocrfile = Drive.Files.insert({title: blob.getName(), mimeType: blob.getContentType()}, blob, {ocr: true, ocrLanguage: "en"});
   //Opens the ocrfile variable by its file ID
@@ -45,19 +48,19 @@ function filterText(text){
   //Splits up the read in text file by each new line
   const result = text.split('\n');
   //Takes a value from the array, and comapres it against the each of the values in the containerCodes array
-  for(var i = 0; i < result.length; i++){
-    for(var j = 0; j < containerCodes.length; j++){
-      result[i].includes(containerCodes[j]) ? finalResult.push(result[i]) : null;
-    }
-  }
+  //for(var i = 0; i < result.length; i++){
+  //  for(var j = 0; j < containerCodes.length; j++){
+  //    result[i].includes(containerCodes[j]) ? finalResult.push(result[i]) : null;
+  //  }
+  //}
   //Sanity checker
-  Logger.log(finalResult)
+  //Logger.log(finalResult)
   //Returns the finalResult array, which will be used later
-  return finalResult;
+  return result;
 }
 
 //Creates a spreadsheet with the email subject as the title
-function createSheet(finalResult){
+function createSheet(text){
   //Create empty variable where subject will be stored
   var ssName = "";
   //Run through the msgs array. The first overall value in the 2D array is the subject title
@@ -67,6 +70,12 @@ function createSheet(finalResult){
     }
   }
   //Creates the spreadsheet with the name of the spreadsheet being the subject of the email it was retrieved from
-  SpreadsheetApp.create(ssName, finalResult.length, 2);
-  
+  var ss = SpreadsheetApp.create(ssName, text.length, 2);
+  //Opens 'Sheet1' of the newly created spreadsheet to be edited
+  var ssNew = SpreadsheetApp.openByUrl(ss.getUrl()).getSheetByName('Sheet1');
+  //Pastes the value of the text array on the row that matches its index
+  for(var i = 1; i < text.length; i++){
+    ssNew.getRange(i,1).setValue(text[i]);
+  }
+  return ss;
 }

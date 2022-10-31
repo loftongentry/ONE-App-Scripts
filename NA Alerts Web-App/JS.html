@@ -1,0 +1,177 @@
+<script>   
+    //TODO: Add comments explaining method
+    function init(){
+      updateAlertLocation()
+      getAlerts()
+      getOldAlerts()
+    }
+    
+    //Checks which value user selected, and then returns list of addresses that match that value
+    function updateAlertLocation(){
+      let select = document.getElementById('alertSelect')
+      let list = document.getElementById('codeList')
+      let codes = null
+
+      while(list.firstChild){
+        list.removeChild(list.firstChild)
+      } 
+      if(select.value === 'Port/Vessel Operations'){
+        codes = data.portOpLoc
+      }else if(select.value === 'Rail Operations' || select.value === 'Rail Disruption'){
+        codes = data.railOpLoc
+      }else if(select.value === 'Weather'){
+        codes = data.weatherLoc
+      }else{
+        return
+      }
+
+      codes.forEach(code => {
+        let option = document.createElement('option')
+        option.value = code
+        list.appendChild(option)
+      })
+      return
+    }
+
+    //Creates new alert object based on data entered in the form that pops up when user selects 'New Alert'
+    function saveAlert(){
+      let out = []
+      //need commas between key/value pairs
+      let controls = {
+        alertSelect: document.getElementById('alertSelect'),
+        alertLocation: document.getElementById('alertLocation'),
+        alertSubject: document.getElementById('alertSubject'),
+        alertBody: document.getElementById('alertBody'),
+        alertDate: document.getElementById('alertDate'),
+        userEmail: document.getElementById('userEmail'),
+      }
+      //If-check to make sure that all necessary data is input into form pop-up, otherwise will not let user submit new alert
+      if(validateInput(controls)){
+        let modalSpinner = document.getElementById('modalSpinner')
+        modalSpinner.hidden = false
+
+        let alertDateFinal = controls.alertDate.value.replaceAll('-','/')
+        alertDate.value === '' ? new Date(alertDateFinal).toLocaleDateString() : new Date(alertDateFinal)
+        //multi word keys need to be enclosed in quotes
+        let record = {
+          'Alert Type': controls.alertSelect.value,
+          'Alert Location': controls.alertLocation.value,
+          'Alert Subject': controls.alertSubject.value,
+          'Alert Details': controls.alertBody.value,
+          'Alert Date': alertDateFinal,
+          'User Email': controls.userEmail.value
+        }
+        out.push(record)
+        google.script.run.withSuccessHandler(clearForm).saveAlerts(out)
+      } else{
+        window.alert('Please Check Input')
+      }
+    }
+    
+    //TODO: Add comments explaining method
+    function getAlerts(){
+      let activeAlertSpinner = document.getElementById('activeAlertSpinner')
+      activeAlertSpinner.hidden = false
+      google.script.run.withSuccessHandler(updateAlertList).getAlerts()
+    }
+
+    //TODO: Add comments explaining method
+    function getOldAlerts(){
+      let oldAlertSpinner = document.getElementById('oldAlertSpinner')
+      oldAlertSpinner.hidden = false
+      google.script.run.withSuccessHandler(updateOldAlertList).getOldAlerts()
+    }
+
+    
+    //TODO: Add comments explaining method    
+    function updateAlertList(data){
+      let activeAlertSpinner = document.getElementById('activeAlertSpinner')
+      activeAlertSpinner.hidden = true
+      let cols = ['Alert Type', 'Alert Location', 'Alert Subject', 'Alert Details', 'Alert Date'/*, 'User Email'*/]
+      let table = document.getElementById('alertDateTable')
+      while(table.firstChild){
+        table.removeChild(table.firstChild)
+      }
+      data.forEach(row => {
+        let tr = document.createElement('tr')
+        for(let col of cols){
+          let td = document.createElement('td')
+          td.textContent = row[col]
+          tr.appendChild(td)
+        }
+        table.appendChild(tr)
+      })
+    }
+
+    //TODO: Add comments explaining method
+    function updateOldAlertList(data){
+      let oldAlertSpinner = document.getElementById('oldAlertSpinner')
+      oldAlertSpinner.hidden = true;
+      let cols = ['Alert Type', 'Alert Location', 'Alert Subject', 'Alert Details', 'Alert Date'/*, 'User Email'*/]
+      let table = document.getElementById('oldAlertTable')
+      while(table.firstChild){
+        table.removeChild(table.firstChild)
+      }
+      data.forEach(row => {
+        let tr = document.createElement('tr')
+        for(let col of cols){
+          let td = document.createElement('td')
+          td.textContent = row[col]
+          tr.appendChild(td)
+        }
+        table.appendChild(tr)
+      }) 
+    }
+    
+    //Clears the form when user exits out of the pop-up form
+    function clearForm(){
+      let modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('newDateModal'))
+      let modalSpinner = document.getElementById('modalSpinner')
+      modalSpinner.hidden = true
+      let controls = {
+        alertSelect: document.getElementById("alertSelect"),
+        alertLocation: document.getElementById('alertLocation'),
+        alertSubject: document.getElementById('alertSubject'),
+        alertBody: document.getElementById('alertBody'),
+        alertDate: document.getElementById('alertDate'),
+        userEmail: document.getElementById('userEmail'),
+      }
+      controls.alertSelect.value = ''
+      controls.alertLocation.value = ''
+      controls.alertSubject.value = ''
+      controls.alertBody.value = ''
+      controls.alertDate.value = ''
+      controls.userEmail.value = ''
+      modal.hide()
+      getAlerts()
+    }
+
+    //Checks if there are specific values in the form
+    function validateInput(controls){
+      return (
+        controls.alertSelect.value != '' &&
+        controls.alertLocation.value != '' &&
+        controls.alertSubject.value != '' &&
+        controls.alertDate.value != '' &&
+        controls.userEmail.value != ''
+      )
+    }
+    
+    /*
+    //Sends out email with variables filled based on user-input from the pop-up form
+    function sendEmail(){
+      var message = {
+        to: "lofton.gentry@one-line.com",
+        subject: controls.alertSubject.valule,
+        body: controls.alertBody.value,
+        //cc: "Matt.Cornell@one-line.com, Todd.Walton@one-line.com, lofton.gentry@one-line.com, sudesh.tennekoon@one-line.com, drew.tener@one-line.com, amy.willis@one-line.com, dave.daly@one-line.com",
+        //bcc:
+        replyTo: controls.userEmail.value,
+        //name: "Maher Schedule Discrepancy",
+        //attachments: [blob.setName("Maher Schedule Discrepancy")]
+      }
+      //Mail is sent out
+      MailApp.sendEmail(message);
+    }
+    */
+</script>

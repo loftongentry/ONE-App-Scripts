@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <base target="_top">
+  <!--Inserting bootstraps-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+  </script>
+
+  <!--Inserting styling and javascript code from 'CSS' and 'JS' class -->
+  <script>
+    let data = JSON.parse(<?= data ?>)
+  </script>
+  <?!= include('CSS') ?>
+  <?!= include('JS') ?>
+  
+</head>
+
+<!--Inserts 'ONE' logo in top right corner -->
+<div style="margin-top: 10px;">
+  <a class="navbar-brand">
+    <img src="https://drive.google.com/uc?export=download&id=14Fx0en1-Hkmt7STi-asxPXrn7np-egfp" height="35" width="70" alt="">
+  </a>
+</div>
+
+<!--Inserts nav bar that is used for styling purposes-->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link active" id="yardText"></a>
+    </li>
+  </ul>
+</nav>
+
+<body onload="init()">
+  <div class="container-fluid">
+    
+    <!--Creates table on web app that allows user to see what alerts have been added-->
+    <div class="row justify-content-left mb-3mt-3">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header cont-card-header">
+            All Active Alerts 
+            <div class="spinner-border spinner-border-sm float-end spinColor" id="activeAlertSpinner" hidden="true"></div>
+          </div>
+          <div class="tableDiv">
+            <table class="table table-sm">
+              <thead style="position: sticky; top: 0; z-index: 1; background:#FFFFFF">
+                <tr>
+                  <th scope="col" class="typeColumn">Alert Type</th>
+                  <th scope="col" class="locationColumn">Alert Location</th>
+                  <th scope="col" class="subjectColumn">Alert Subject</th>
+                  <th scope="col" class="detailColumn">Alert Details</th>
+                  <th scope="col" class="dateColumn">Alert Date</th>
+                  <th scope="col" class="emailColumn">User Email</th>
+                </tr>
+              </thead>
+              <tbody id="alertDateTable">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+    <div class="row justify-content-left mb-3mt-3">
+      <!--Creates table on web app that allows user to see all of the old alerts that had been added in the past-->
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header cont-card-header">
+            All Past Alerts 
+            <div class="spinner-border spinner-border-sm float-end spinColor" id="oldAlertSpinner" hidden="true"></div>
+          </div>
+          <div class="tableDiv">
+            <table class="table table-sm">
+              <thead style="position: sticky; top: 0; z-index: 1; background:#FFFFFF">
+                <tr>
+                  <th scope="col" class="typeColumn">Alert Type</th>
+                  <th scope="col" class="locationColumn">Alert Location</th>
+                  <th scope="col" class="subjectColumn">Alert Subject</th>
+                  <th scope="col" class="detailColumn">Alert Details</th>
+                  <th scope="col" class="dateColumn">Alert Date</th>
+                  <th scope="col" class="emailColumn">User Email</th>
+                </tr>
+              </thead>
+              <tbody id="oldAlertTable">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Creates the button that opens the form that allows user input-->
+    <div class="row mb-3 mt-3">
+      <button type="button" class="btn save-btn btn-dark" data-bs-toggle="modal" data-bs-target="#newDateModal">New Alert</button>
+    </div>
+
+    <div class="modal fade" id="newDateModal" data-bs-backdrop="static" tabindex="-1">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+
+          <!--Header for the pop up that appears-->
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">Create New Alert</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+
+          <!--Body of the pop-up menu-->
+          <div class="modal-body">
+            <!--First option that allows user input (only allows for three options to be selected)-->
+            <div class="modalDiv mb-3">
+              <h5>Alert Type</h5>
+              <select class="form-select" id="alertSelect" onchange="updateAlertLocation()">
+                  <option value="Port/Vessel Operations">Port/Vessel Operations</option>
+                  <option value="Rail Operations">Rail Operations</option>
+                  <option value="Rail Disruption">Rail Disruption</option>
+                  <option value="Weather">Weather</option>
+                </select>
+            </div>
+            
+            <!--Depending on user input on the alert type, users selects the address of the location being selected-->
+            <div class="modalDive mb-3">
+              <h5>Alert Location</h5>
+              <div>
+                <input type="text" list="codeList" class="form-control" id="alertLocation">
+                <datalist id="codeList"></datalist>
+              </div>
+            </div>
+
+            <!--Subject for the alert-->
+            <div class="modalDiv mb-3">
+              <h5>Alert Subject</h5>
+              <div>
+                <input type="text" class="form-control" id="alertSubject">
+              </div>
+            </div>
+
+            <!--Details for data about the alert-->
+            <div class="modalDiv mb-3">
+              <h5>Alert Details</h5>
+              <div>
+                <input type="text" class="form-control" id="alertBody">
+              </div>
+            </div>
+
+            <!--User selects date of the alert-->
+            <div class="modalDiv mb-3">
+              <h5>Alert Date</h5>
+              <div>
+                <input type="date" class="form-control" id="alertDate">
+              </div>
+            </div>
+
+            <!--User Email to be sent out after user saves new Alert--
+            <div class="modalDiv mb-3">
+              <h5>User Email</h5>
+              <div>
+                <input type="text" class="form-control" id="userEmail">
+              </div>
+            </div>
+
+            <div class="modalDiv mb-3">
+                <h5>Would you like to send an email out as well?</h5>
+                <div class="list-group">
+                  <input class="form-check-input me-1 typeCheck" type="checkbox" id="yes-box" value="YES">
+                  <label for="yes-box">Check this box for yes</label><br>
+                </div>
+              </div>
+            </div>
+          </div>-->
+
+          <!--Footer for the pop up that appears. Contains save button that saves the alert to the spreadsheet when pressed.-->
+          <div class="modal-footer">
+            <div class="spinner border spinner-border-sm float-start spinColor" id="modalSpinner" hidden="true"></div>
+            <button type="button" class="btn btn-color-grey" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-dark btn-color-magenta" onclick="saveAlert()">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

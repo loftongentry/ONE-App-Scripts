@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <style>
+      p {display: table-row; }
+      label { display: table-cell; }
+      input[type=text] { display: table-cell; }
+      input[type=button] { margin-top: 20px; } 
+    </style>
+    <script>
+      function setVesselCounts(){
+        let controls = {}
+        document.querySelectorAll("input[type=text]").forEach(input => controls[input.id] = input.value)
+        validateInput(controls) ? google.script.run.withSuccessHandler(google.script.host.close).setVesselCountsEC(controls) : window.alert('Please Check Input')
+      }
+
+      function validateInput(controls){
+        return (
+          controls["NY"].value != '' &&
+          controls["Norfolk"].value != '' &&
+          controls["Charleston"].value != '' &&
+          controls["Savannah"].value != '' &&
+          controls["Mobile"].value != ''&&
+          controls["Houston"].value != ''
+        )
+      }
+    </script>
+  </head>
+
+  <body>
+    <div>
+      <table class="vessel-form">
+        <p>
+          <label for="NY">NY: </label><input type="text" id="NY" />
+        </p>
+        <p>
+          <label for="Norfolk">Norfolk: </label><input type="text" id="Norfolk">
+        </p>
+        <p>
+          <label for="Charleston">Charleston: </label><input type="text" id="Charleston">
+        </p>
+        <p>
+          <label for="Savannah">Savannah: </label><input type="text" id="Savannah">
+        </p>
+        <p>
+          <label for="Mobile">Mobile: </label><input type="text" id="Mobile">
+        </p>
+        <p>
+          <label for="Houston">Houston: </label><input type="text" id="Houston">
+        </p>
+      </table>
+      <input type="button" value="Submit" class="action" onclick="setVesselCounts()" >
+      <input type="button" value="Close" onclick="google.script.host.close()" />
+    </div>
+  </body>
+</html>

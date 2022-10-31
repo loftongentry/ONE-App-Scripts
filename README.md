@@ -1,5 +1,5 @@
 # ONE-App-Scripts
-# LAST UPDATED: 9/26/22
+# LAST UPDATED: 10/31/22
 ### PERTINENT INFORMATION REGARDING THIS REPOSITORY
 - This is the current repository for all of the different scripts that I have either written for Ocean Network Express, or am currently working on for Ocean Network Express. Each of the files have a description, as well as a start date and completed date. Because ONE uses Google scripts for some back-end development, and because there is no way to link github to Google scripts, each of these files will be updated manually, periodically. If there is a project that I am working on for ONE that does not use google scripts and can be updated using github, that program will be in a seperate repository.
 - Uploaded with the scripts as well are excel files associated with each of the scripts. These files are originally google sheets, however for the sake of example, I have included them as well to see what the files being edited look like. 
@@ -21,6 +21,10 @@ Each of the scripts already has a much lengthier description, as well as comment
     - **Rail Departure Dwell (Imports at Port):** This script takes in data automatically from a seperate spreadsheet, and then processes this data to a point where it can be used by the ONE NA Network Map. Like the other scripts, this sheet also organizes its layers based on the number of times green, yellow, and red appear.
 4. **ORF Terminal Update (SCRIPT HANDED OVER TO TEAMMATE AND WILL NOT BE UPDATED FURTHER):** A script that pulls data from an HTML page, and then compares it to data from ONE's database on a seperate sheet. That sheet is then saved as a PDF and automatically sent to parties who that data is relevant towards. 
 5. **Invoice PDF OCR:** Script reads in a PDF that is obtained through an email, and then pulls data from it, compared so that only data that meet certain parameters are returned, and then that returned data is stored in a G Sheet that is stored in a specific folder on a shared drive.
+6. **ONE Calendar Automation:** Retrieves data automatically from an email and creates events that are added to the ONE calendar, providing updates about vessel schedules, etc.
+7. **Terminal PDF Update:** Takes in a url that links to a PDF, then uses Google's built in OCR to convert the contents of that PDF into text, then pastes all of that data into a spreadsheet.
+8. **Google Spreadsheet Menu Box:** Creates a menu box on a spreadsheet that allows for user input, then updates the spreadsheet based on the contents submitted from the menu box.
+9. **NA Alerts Web-App/Website:** Web-App/Website that allows ONE members to create new alerts that are saved onto a spreadsheet after being submitted. These alerts are displayed on the website, as well as all past alerts. These alerts are then filtered into the ONE NA Network Site.
 
 
 If there is anything that needs further explanation, please don't hesistate to reach out to me and ask. I will do my best to help. 

@@ -10,7 +10,7 @@
   - **Start Date:** 8/8/2022
   - **End Date:** Currently Employed
 
-### What Each of The Scripts Does
+### App Script Explanations:
 Each of the scripts already has a much lengthier description, as well as comments in the script explaining each of the steps of the script, so I will keep descriptions of what each brief. All NA Network Map scripts as well as the ORF Terminal Update script are all executed by triggers that were created inside of the Google script IDE.
 1. **GSheet to Email:** Sends an email to the emails saved on a google sheet with their accompanying subject and body text
 2. **Import Excel file to Google Drive and convert to Google Sheet:** Creates a drop down menu in the google sheets ui that allows user to convert excel files that are saved on the google drive into google sheets. (No example spreadsheets are provided, as any excel file should work with this script).
@@ -20,11 +20,12 @@ Each of the scripts already has a much lengthier description, as well as comment
     - **Door Truck Capacity Status:** Similar to the 'Chassis Status Report' script, the script this spreadsheet links to is also updated manually by a seperate team. Because the team that updates this spreadsheet do not want empty rows appearing, the sheet used by NA Network Map is shown, had actions performed on it, and then re-hidden. Please refer to the script itself for a more detailed explanation.
     - **Rail Departure Dwell (Imports at Port):** This script takes in data automatically from a seperate spreadsheet, and then processes this data to a point where it can be used by the ONE NA Network Map. Like the other scripts, this sheet also organizes its layers based on the number of times green, yellow, and red appear.
 4. **ORF Terminal Update (SCRIPT HANDED OVER TO TEAMMATE AND WILL NOT BE UPDATED FURTHER):** A script that pulls data from an HTML page, and then compares it to data from ONE's database on a seperate sheet. That sheet is then saved as a PDF and automatically sent to parties who that data is relevant towards. 
-5. **Invoice PDF OCR:** Script reads in a PDF that is obtained through an email, and then pulls data from it, compared so that only data that meet certain parameters are returned, and then that returned data is stored in a G Sheet that is stored in a specific folder on a shared drive.
-6. **ONE Calendar Automation:** Retrieves data automatically from an email and creates events that are added to the ONE calendar, providing updates about vessel schedules, etc.
-7. **Terminal PDF Update:** Takes in a url that links to a PDF, then uses Google's built in OCR to convert the contents of that PDF into text, then pastes all of that data into a spreadsheet.
-8. **Google Spreadsheet Menu Box:** Creates a menu box on a spreadsheet that allows for user input, then updates the spreadsheet based on the contents submitted from the menu box.
-9. **NA Alerts Web-App/Website:** Web-App/Website that allows ONE members to create new alerts that are saved onto a spreadsheet after being submitted. These alerts are displayed on the website, as well as all past alerts. These alerts are then filtered into the ONE NA Network Site.
+5. **ONE Calendar Automation:** Retrieves data automatically from an email and creates events that are added to the ONE calendar, providing updates about vessel schedules, etc.
+6. **Google Spreadsheet Menu Box:** Creates a menu box on a spreadsheet that allows for user input, then updates the spreadsheet based on the contents submitted from the menu box.
+7. **NA Alerts Web-App/Website:** Web-App/Website that allows ONE members to create new alerts that are saved onto a spreadsheet after being submitted. These alerts are displayed on the website, as well as all past alerts. These alerts are then filtered into the ONE NA Network Site.
 
+### ONE OCR Scripts Explanation: 
+1. **Invoice PDF OCR:** Script reads in a PDF that is obtained through an email, and then pulls data from it, compared so that only data that meet certain parameters are returned, and then that returned data is stored in a G Sheet that is stored in a specific folder on a shared drive.
+2. **Terminal PDF Update:** Takes in a url that links to a PDF, then uses Google's built in OCR to convert the contents of that PDF into text, then pastes all of that data into a spreadsheet.
 
 If there is anything that needs further explanation, please don't hesistate to reach out to me and ask. I will do my best to help. 
